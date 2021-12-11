@@ -1,32 +1,28 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+  <div>
+    <Header />
+    <router-view></router-view>
+    <Footer v-show="!$route.meta.isHideFooter" />
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
-#nav {
-  padding: 30px;
-}
+export default {
+  name: "App",
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  components: {
+    Header,
+    Footer,
+  },
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  mounted() {
+    // 三级分类请求统一在这里发送，避免在home和search中都发送，影响性能
+    this.$store.dispatch("getBaseCategoryList");
+  },
+};
+</script>
+
+<style lang="less" scoped></style>
