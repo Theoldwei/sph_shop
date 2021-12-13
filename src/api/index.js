@@ -13,3 +13,7 @@ export const reqBanners = () => mockAjax.get("/banners");
 
 // 获取首页楼层列表
 export const reqFloors = () => mockAjax.get("/floors");
+
+// 请求搜索匹配的商品相关数据
+export const reqProductList = (searchParams) =>
+  ajax.post("/list", searchParams);
