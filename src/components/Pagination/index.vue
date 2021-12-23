@@ -10,15 +10,16 @@
     <button disabled v-if="startEnd.start > 2">···</button>
 
     <!-- 连续页码 -->
-    <button
-      v-for="item in startEnd.end"
-      v-if="item >= startEnd.start"
-      :key="item"
-      @click="changeCurrentPage(item)"
-      :class="{ active: mcPage === item }"
-    >
-      {{ item }}
-    </button>
+    <span v-for="item in startEnd.end" :key="item">
+      <button
+        v-if="item >= startEnd.start"
+        @click="changeCurrentPage(item)"
+        :class="{ active: mcPage === item }"
+      >
+        {{ item }}
+      </button>
+    </span>
+
     <!-- 只有end<totalPages-1才显示  -->
     <button disabled v-if="startEnd.end < totalPages - 1">···</button>
     <!-- 只有end<totalPages才显示 -->
@@ -67,6 +68,7 @@ export default {
     },
   },
 
+  //只会在页面第一次挂载时调用一次
   data() {
     return {
       mcPage: this.currentPage, // 保存自己的当前页码
@@ -74,77 +76,31 @@ export default {
   },
 
   computed: {
-    /* 
-      总页码数
-      依赖数据: 
-        总数量: total    
-        每页数量: pageSize  
-      */
+    // 计算出总页码数
     totalPages() {
-      // 取出依赖数据   31 5 ==> 7
+      // 解构出依赖数据
       const { total, pageSize } = this;
       // 返回计算后的结果
       return Math.ceil(total / pageSize);
     },
-
-    /* 
-      返回连续页码的开始页码(start)与结束页码(end): 
-      比如: {start: 3, end: 7}
-      依赖数据:
-          当前页码: mcPage
-          最大连续页码数: showPageNo
-          总页码数: totalPages
-      注意:
-          start的最小值为1
-          end的最大值为totalPages
-          start与end之间的最大差值为showPageNo-1
-      */
+    // 计算出开始页和结束页
     startEnd() {
+      // 解构出需要的值，这里的showPageNo连续页一般设为奇数（因为这样可以对称）
       const { mcPage, showPageNo, totalPages } = this;
 
-      // 计算start
-      /* 
-        mcPage showPageNo totalPages     start到end
-          4        5          10           23[4]56
-        */
-      let start = mcPage - Math.floor(showPageNo / 2); // 4 - 2
-      /* 
-        mcPage showPageNo totalPages  start到end
-          2        5          10         1[2]345
-        但start上面计算得到是: 0
-        */
-      // start的最小值是1, 如果小于1, 修正为1
+      // 计算出开始页，以当前页开始计算（以达成对称的目的）
+      let start = mcPage - Math.floor(showPageNo / 2);
       if (start < 1) {
         start = 1;
       }
 
-      // 计算end
-      /* 
-        mcPage showPageNo totalPages     start到end
-          4        5          10           23[4]56
-        */
-      // start与end之间的最大差值为showPageNo-1
-      let end = start + showPageNo - 1; // 2 + 5 -1
-
-      /* 
-        mcPage showPageNo totalPages     start到end
-          4        5          5           123[4]5
-        但上面计算的end为6, 应该为5    ==> end = totalPages
-                   start为2, 应该为1  ==> start = end - showPageNo + 1
-        */
+      // 计算出结束页，在开始页的基础上计算
+      let end = start + showPageNo - 1;
       // 如果end超过了totalPages, 修正为totalPages
       if (end > totalPages) {
         end = totalPages;
         // 根据最大连续页码修正start
         start = end - showPageNo + 1;
-
-        /* 
-           mcPage showPageNo totalPages     start到end
-              4        5          4           123[4]
-            上面计算
-                start为0  应该为1
-                end为4   没问题
-          */
         // start不能小于最小值1
         if (start < 1) {
           start = 1;
@@ -156,9 +112,7 @@ export default {
   },
 
   watch: {
-    /*
-      当接收的currentPage发生改变时调用 
-       */
+    // 当接收的currentPage发生改变时，重新给data中的mcPage数据赋值
     currentPage(value) {
       // 将当前页码指定为外部传入的值
       this.mcPage = value;
@@ -166,9 +120,7 @@ export default {
   },
 
   methods: {
-    /* 
-      将当前页码改为指定页码
-      */
+    // 将当前页码改为指定页码
     changeCurrentPage(page) {
       // 修改当前页码
       this.mcPage = page;
@@ -181,6 +133,7 @@ export default {
 
 <style lang="less" scoped>
 .pagination {
+  text-align: center;
   button {
     margin: 0 5px;
     background-color: #f4f4f5;

@@ -49,7 +49,6 @@
                 >
                   <a href="javascript:">
                     综合
-                    <!-- 1:desc icondown 1:asc iconup  其它不显示 -->
                     <i
                       class="iconfont"
                       :class="orderIcon"
@@ -109,8 +108,7 @@
                   </div>
                   <div class="operate">
                     <a
-                      href="success-cart.html"
-                      target="_blank"
+                      href="javascript:void(0);"
                       class="sui-btn btn-bordered btn-danger"
                       >加入购物车</a
                     >
@@ -153,7 +151,7 @@ export default {
         keyword: "", // 关键字
         trademark: "", // 品牌  "ID:品牌名称"
         props: [], // 商品属性的数组: ["属性ID:属性值:属性名"] 示例: ["2:6.0～6.24英寸:屏幕尺寸"]
-        order: "2:desc", // 排序方式  1:综合,2:价格。asc:升序,desc:降序 示例: "1:asc"代表综合升序
+        order: "1:desc", // 排序方式  1:综合,2:价格。asc:升序,desc:降序 示例: "1:asc"代表综合升序
         pageNo: 1, // 当前页码
         pageSize: 5, // 每页数量
       },
@@ -168,8 +166,8 @@ export default {
     // 返回排序方式的图标类名
     orderIcon() {
       return this.options.order.split(":")[1] === "desc"
-        ? "icondown"
-        : "iconup";
+        ? "icon-down"
+        : "icon-up";
     },
   },
 
@@ -266,7 +264,8 @@ export default {
       this.options.category3Id = "";
       // 重新获取数据,页面路径不会变化
       // this.$store.dispatch("getProductList", this.options); // 不可以
-      // 重新跳转到当前路由, 不再携带query参数, 只携带原本的params参数
+
+      // 重新跳转到当前不携带query参数, 只携带原本的params参数的路由的页面，路由变化会触发监听
       this.$router.replace(this.$route.path); // $route.path不带query参数, 但带params参数(如果有)
     },
 
@@ -277,7 +276,7 @@ export default {
       // 重新获取数据,页面路径不会变化
       // this.$store.dispatch('getProductList', this.options) // 不可以
 
-      // 重新跳转到当前路由, 不再携带params参数, 只携带原本的query参数
+      // 重新跳转到当前路由, 不再携带params参数, 只携带原本的query参数，路由变化会触发监听
       this.$router.replace({ name: "search", query: this.$route.query });
 
       // 通知Header组件也删除输入的关键字
@@ -446,10 +445,9 @@ export default {
                 padding-left: 15px;
                 width: 215px;
                 height: 255px;
+                cursor: pointer;
 
                 a {
-                  color: #666;
-
                   img {
                     max-width: 100%;
                     height: auto;
