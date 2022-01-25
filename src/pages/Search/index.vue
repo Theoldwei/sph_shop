@@ -90,9 +90,9 @@
               >
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="javascript:">
+                    <router-link :to="`/detail/${goods.id}`">
                       <img :src="goods.defaultImg" />
-                    </a>
+                    </router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -445,14 +445,12 @@ export default {
                 padding-left: 15px;
                 width: 215px;
                 height: 255px;
-                cursor: pointer;
+                text-align: center;
 
-                a {
-                  img {
-                    max-width: 100%;
-                    height: auto;
-                    vertical-align: middle;
-                  }
+                img {
+                  width: 90%;
+                  height: 90%;
+                  vertical-align: middle;
                 }
               }
 

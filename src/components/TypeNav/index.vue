@@ -99,7 +99,7 @@ export default {
   },
 
   mounted() {
-    // 如果请求的路径是根路径则显示一级分类列表(在home中显示，在search中默认隐藏)
+    // 如果请求的路径是根路径则显示一级分类列表(在home中显示，在其他页面中默认隐藏)
     this.isShow = this.$route.path === "/home";
     // 异步获取所有分类列表数据，将该请求放在App根组件里，减少请求次数（home和search都会发该请求）
     // this.$store.dispatch("getBaseCategoryList");
