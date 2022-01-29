@@ -8,16 +8,23 @@
 import axios from "axios";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+//在当前模块中引入store,因为在这里无法通过this.store获取
+import store from "@/store";
 
 // 配置不显示右上角的旋转进度条, 只显示水平进度条
 NProgress.configure({ showSpinner: false });
 
 const service = axios.create({
   baseURL: "/api", // 基础路径
-  timeout: 15000, // 连接请求超时时间
+  timeout: 5000, // 连接请求超时时间
 });
 
 service.interceptors.request.use((config) => {
+  if (store.state.detail.uuid_token) {
+    //请求头添加一个字段(userTempId):和后台老师商量好了
+    config.headers.userTempId = store.state.detail.uuid_token;
+  }
+
   // 显示请求中的水平进度条
   NProgress.start();
 

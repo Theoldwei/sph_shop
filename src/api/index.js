@@ -20,3 +20,16 @@ export const reqProductList = (searchParams) =>
 
 // 获取商品详情信息
 export const reqDetailInfo = (skuId) => ajax.get(`/item/${skuId}`);
+
+// 添加到购物车(修改购物项数量)
+// skuNum指定为改变的数量, 如果是减少就是负数
+export const reqAddOrUpdateShopCart = (skuId, skuNum) =>
+  ajax.post(`/cart/addToCart/${skuId}/${skuNum}`);
+// 获取购物车数据列表
+export const reqCartList = () => ajax.get("/cart/cartList");
+// 指定购物项的选中状态 /api/cart/checkCart/{skuID}/{isChecked}
+export const reqUpdateCheckedByid = (skuId, isChecked) =>
+  ajax.get(`/cart/checkCart/${skuId}/${isChecked}`);
+// 删除购物车商品 /api/cart/deleteCart/{skuId}
+export const reqDeleteCartById = (skuId) =>
+  ajax.delete(`/cart/deleteCart/${skuId}`);

@@ -28,7 +28,7 @@ export default {
       // 高频调用
       // 得到事件坐标
       const { offsetX, offsetY } = event;
-      console.log(offsetX, offsetY);
+      // console.log(offsetX, offsetY);
       // 得到mask的宽度
       const maskWidth = this.maskWidth;
 
