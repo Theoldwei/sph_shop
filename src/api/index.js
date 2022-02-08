@@ -33,3 +33,28 @@ export const reqUpdateCheckedByid = (skuId, isChecked) =>
 // 删除购物车商品 /api/cart/deleteCart/{skuId}
 export const reqDeleteCartById = (skuId) =>
   ajax.delete(`/cart/deleteCart/${skuId}`);
+
+//获取验证码
+//URL:/api/user/passport/sendCode/{phone}  method:get
+export const reqGetCode = (phone) =>
+  ajax({ url: `/user/passport/sendCode/${phone}`, method: "get" });
+
+//注册
+//url:/api/user/passport/register  method:post    phone code password
+export const reqUserRegister = (data) =>
+  ajax({ url: "/user/passport/register", data, method: "post" });
+
+//登录
+//URL:/api/user/passport/login  method:post phone password
+export const reqUserLogin = (data) =>
+  ajax({ url: "/user/passport/login", data, method: "post" });
+
+//获取用户信息【需要带着用户的token向服务器要用户信息】
+//URL:/api/user/passport/auth/getUserInfo  method:get
+export const reqUserInfo = () =>
+  ajax({ url: "/user/passport/auth/getUserInfo", method: "get" });
+
+//退出登录
+//URL:/api/user/passport/logout  get
+export const reqLogout = () =>
+  ajax({ url: "/user/passport/logout", method: "get" });
