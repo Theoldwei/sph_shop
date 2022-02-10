@@ -17,6 +17,10 @@ Vue.component("Pagination", Pagination);
 import "@/mock/mockServe";
 //引入swiper样式
 import "swiper/css/swiper.css";
+//统一接口api文件夹里面全部请求函数
+import * as API from "@/api";
+// 加载element-ui需要的组件
+import "./elements";
 
 Vue.config.productionTip = false;
 
@@ -26,6 +30,7 @@ new Vue({
   //全局事件总线$bus配置
   beforeCreate() {
     Vue.prototype.$bus = this;
+    Vue.prototype.$API = API;
   },
   render: (h) => h(App),
 }).$mount("#app");

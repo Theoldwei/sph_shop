@@ -5,6 +5,9 @@ import Login from "@/pages/Login";
 import Detail from "@/pages/Detail";
 import AddCartSuccess from "@/pages/AddCartSuccess";
 import ShopCart from "@/pages/ShopCart";
+import Trade from "@/pages/Trade";
+import Pay from "@/pages/Pay";
+import PaySuccess from "@/pages/PaySuccess";
 /* 
 所有静态路由配置的数组
 */
@@ -70,5 +73,36 @@ export default [
     meta: {
       isHideFooter: true,
     },
+  },
+
+  {
+    path: "/trade",
+    component: Trade,
+    // 路由独享的守卫
+    beforeEnter: (to, from, next) => {
+      if (from.path !== "/shopcart") {
+        next({ path: "/shopcart" });
+      } else {
+        next();
+      }
+    },
+  },
+
+  {
+    path: "/pay",
+    component: Pay,
+    // 路由独享的守卫
+    beforeEnter: (to, from, next) => {
+      if (from.path !== "/trade") {
+        next({ path: "/trade" });
+      } else {
+        next();
+      }
+    },
+  },
+
+  {
+    path: "/paysuccess",
+    component: PaySuccess,
   },
 ];
