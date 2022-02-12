@@ -8,6 +8,9 @@ import ShopCart from "@/pages/ShopCart";
 import Trade from "@/pages/Trade";
 import Pay from "@/pages/Pay";
 import PaySuccess from "@/pages/PaySuccess";
+import Center from "@/pages/Center";
+import MyOrder from "@/pages/Center/myOrder";
+import GroupOrder from "@/pages/Center/groupOrder";
 /* 
 所有静态路由配置的数组
 */
@@ -104,5 +107,27 @@ export default [
   {
     path: "/paysuccess",
     component: PaySuccess,
+  },
+
+  {
+    path: "/center",
+    component: Center,
+    // 二级路由
+    children: [
+      {
+        // path: '/center/myorder',
+        path: "myorder",
+        component: MyOrder,
+      },
+      {
+        path: "grouporder",
+        component: GroupOrder,
+      },
+      // 子路由重定项·
+      {
+        path: "",
+        redirect: "myorder",
+      },
+    ],
   },
 ];
