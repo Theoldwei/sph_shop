@@ -1,4 +1,6 @@
 module.exports = {
+  // 设置打包不生成.map的文件
+  productionSourceMap: false,
   // 关闭eslint校验
   lintOnSave: false,
   devServer: {

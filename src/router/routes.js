@@ -1,16 +1,30 @@
-import Home from "@/pages/Home";
-import Search from "@/pages/Search";
-import Register from "@/pages/Register";
-import Login from "@/pages/Login";
-import Detail from "@/pages/Detail";
-import AddCartSuccess from "@/pages/AddCartSuccess";
-import ShopCart from "@/pages/ShopCart";
-import Trade from "@/pages/Trade";
-import Pay from "@/pages/Pay";
-import PaySuccess from "@/pages/PaySuccess";
-import Center from "@/pages/Center";
-import MyOrder from "@/pages/Center/myOrder";
-import GroupOrder from "@/pages/Center/groupOrder";
+// import Home from "@/pages/Home";
+// import Search from "@/pages/Search";
+// import Detail from "@/pages/Detail";
+// import ShopCart from "@/pages/ShopCart";
+// import AddCartSuccess from "@/pages/AddCartSuccess";
+// import Register from "@/pages/Register";
+// import Login from "@/pages/Login";
+// import Trade from "@/pages/Trade";
+// import Pay from "@/pages/Pay";
+// import PaySuccess from "@/pages/PaySuccess";
+// import Center from "@/pages/Center";
+// import MyOrder from "@/pages/Center/myOrder";
+// import GroupOrder from "@/pages/Center/groupOrder";
+// 设置为路由懒加载
+const Home = () => import("@/pages/Home");
+const Search = () => import("@/pages/Search");
+const Detail = () => import("@/pages/Detail");
+const ShopCart = () => import("@/pages/ShopCart");
+const AddCartSuccess = () => import("@/pages/AddCartSuccess");
+const Register = () => import("@/pages/Register");
+const Login = () => import("@/pages/Login");
+const Trade = () => import("@/pages/Trade");
+const Pay = () => import("@/pages/Pay");
+const PaySuccess = () => import("@/pages/PaySuccess");
+const Center = () => import("@/pages/Center");
+const MyOrder = () => import("@/pages/Center/myOrder");
+const GroupOrder = () => import("@/pages/Center/groupOrder");
 /* 
 所有静态路由配置的数组
 */
